@@ -25,6 +25,19 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
+            // Navegaciones: red primero (sirve index.html de la SPA) y, sin conexión,
+            // la última versión en caché o, si no existe, public/offline.html.
+            urlPattern: ({ request, url }) =>
+              request.mode === 'navigate' && !/\.(?:mp4|webm)$/i.test(url.pathname),
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 30 },
+              precacheFallback: { fallbackURL: '/offline.html' },
+            },
+          },
+          {
             urlPattern: /^https:\/\/images\.picsum\.photos\/.*/i,
             handler: 'CacheFirst',
             options: {
@@ -33,8 +46,7 @@ export default defineConfig({
             },
           },
         ],
-        navigateFallback: '/offline.html',
-        navigateFallbackDenylist: [/\.(?:mp4|webm)$/i],
+        navigateFallback: null,
       },
     }),
   ],
