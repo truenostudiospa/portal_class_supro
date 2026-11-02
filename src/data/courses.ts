@@ -2,15 +2,175 @@ import type { Category, Course, Instructor, Review, Sport } from '@/types'
 
 const video = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
 const instructors: Instructor[] = [
-  { id: 'i1', name: 'Martín Rojas', avatar: 'https://i.pravatar.cc/160?img=12', bio: 'Entrenador UEFA Pro y analista táctico. Ha formado a más de 8.000 jugadores.', rating: 4.9, students: 12400, coursesCount: 6 },
-  { id: 'i2', name: 'Valeria Soto', avatar: 'https://i.pravatar.cc/160?img=47', bio: 'Atleta olímpica y especialista en técnica de natación competitiva.', rating: 4.8, students: 8300, coursesCount: 4 },
-  { id: 'i3', name: 'Diego Morales', avatar: 'https://i.pravatar.cc/160?img=53', bio: 'Preparador físico certificado con 15 años acompañando atletas.', rating: 4.9, students: 15200, coursesCount: 8 },
-  { id: 'i4', name: 'Ana Beltrán', avatar: 'https://i.pravatar.cc/160?img=32', bio: 'Profesora de yoga y fisioterapeuta enfocada en movimiento consciente.', rating: 4.9, students: 9200, coursesCount: 5 }
+  {
+    id: 'i1',
+    name: 'Martín Rojas',
+    avatar: 'https://i.pravatar.cc/160?img=12',
+    bio: 'Entrenador UEFA Pro y analista táctico. Ha formado a más de 8.000 jugadores.',
+    rating: 4.9,
+    students: 12400,
+    coursesCount: 6,
+  },
+  {
+    id: 'i2',
+    name: 'Valeria Soto',
+    avatar: 'https://i.pravatar.cc/160?img=47',
+    bio: 'Atleta olímpica y especialista en técnica de natación competitiva.',
+    rating: 4.8,
+    students: 8300,
+    coursesCount: 4,
+  },
+  {
+    id: 'i3',
+    name: 'Diego Morales',
+    avatar: 'https://i.pravatar.cc/160?img=53',
+    bio: 'Preparador físico certificado con 15 años acompañando atletas.',
+    rating: 4.9,
+    students: 15200,
+    coursesCount: 8,
+  },
+  {
+    id: 'i4',
+    name: 'Ana Beltrán',
+    avatar: 'https://i.pravatar.cc/160?img=32',
+    bio: 'Profesora de yoga y fisioterapeuta enfocada en movimiento consciente.',
+    rating: 4.9,
+    students: 9200,
+    coursesCount: 5,
+  },
 ]
-const sports: Sport[] = ['Fútbol','Baloncesto','Natación','Running','Yoga','Crossfit','Tenis','Ciclismo','Artes marciales','Fitness','Nutrición','Psicología deportiva','Fútbol','Running','Fitness']
-const names = ['Dominio del balón y visión de juego','Baloncesto: técnica y lectura de cancha','Natación eficiente: estilo libre','Running: de 5K a media maratón','Yoga para atletas y movilidad','Crossfit desde cero con seguridad','Tenis moderno: golpes y estrategia','Ciclismo de ruta: potencia y resistencia','Jiu-jitsu para principiantes','Fuerza funcional para deportistas','Nutrición deportiva basada en evidencia','Mentalidad competitiva y confianza','Táctica de fútbol: presión y transición','Trail running: técnica en montaña','Entrenamiento HIIT para rendimiento']
-const slugs = ['dominio-balon','baloncesto-tecnica','natacion-estilo-libre','running-media-maraton','yoga-atletas','crossfit-cero','tenis-moderno','ciclismo-ruta','jiu-jitsu-principiantes','fuerza-funcional','nutricion-deportiva','mentalidad-competitiva','tactica-futbol','trail-running','hiit-rendimiento']
-const lessons = (index: number) => Array.from({ length: 3 + index % 6 }, (_, n) => ({ id: `${index + 1}-${n + 1}`, title: ['Bienvenida y objetivos','Fundamentos esenciales','Técnica paso a paso','Práctica guiada','Errores frecuentes','Plan de entrenamiento','Reto final','Cierre y siguientes pasos'][n], duration: `${4 + n * 3}:20`, videoUrl: video, isFree: n === 0, completed: false }))
-export const courses: Course[] = names.map((title, i) => ({ id: String(i + 1), slug: slugs[i], title, subtitle: `Entrena ${sports[i].toLowerCase()} con un método claro, progresivo y aplicable desde hoy.`, description: `Un programa práctico para mejorar tu rendimiento en ${sports[i].toLowerCase()}. Combina fundamentos, ejercicios guiados y herramientas para que avances con confianza a tu propio ritmo.`, sport: sports[i], level: i % 3 === 0 ? 'Principiante' : i % 3 === 1 ? 'Intermedio' : 'Avanzado', price: [29.99, 39.99, 49.99, 34.99, 24.99][i % 5], rating: Number((4.5 + (i % 5) / 10).toFixed(1)), reviewsCount: 112 + i * 87, students: 850 + i * 483, duration: `${2 + i % 5} h ${15 + i * 4} min`, thumbnail: `https://picsum.photos/seed/sportacademy-${i + 11}/960/540`, previewVideo: video, instructor: instructors[i % instructors.length], lessons: lessons(i), tags: [sports[i], i % 2 ? 'Técnica' : 'Rendimiento', 'Entrenamiento'], updatedAt: 'septiembre de 2026' }))
-export const categories: Category[] = ['Fútbol','Baloncesto','Natación','Running','Yoga','Crossfit','Tenis','Ciclismo','Artes marciales','Fitness','Nutrición','Psicología deportiva'].map((name, i) => ({ id: String(i), name, icon: ['⚽','🏀','🏊','🏃','🧘','🏋️','🎾','🚴','🥋','💪','🥗','🧠'][i], slug: name.toLowerCase().replace(' ', '-'), coursesCount: courses.filter(c => c.sport === name).length }))
-export const reviews: Review[] = [{ id: 'r1', user: 'Camila Vega', avatar: 'https://i.pravatar.cc/80?img=45', rating: 5, comment: 'Muy claro, práctico y con ejercicios que pude aplicar desde la primera semana.', date: 'Hace 2 semanas' }, { id: 'r2', user: 'Lucas Pérez', avatar: 'https://i.pravatar.cc/80?img=11', rating: 5, comment: 'El ritmo es perfecto y las explicaciones del instructor son excelentes.', date: 'Hace 1 mes' }, { id: 'r3', user: 'Sofía Navarro', avatar: 'https://i.pravatar.cc/80?img=49', rating: 4, comment: 'Contenido de calidad, especialmente útil para ordenar mi entrenamiento.', date: 'Hace 2 meses' }]
+const sports: Sport[] = [
+  'Fútbol',
+  'Baloncesto',
+  'Natación',
+  'Running',
+  'Yoga',
+  'Crossfit',
+  'Tenis',
+  'Ciclismo',
+  'Artes marciales',
+  'Fitness',
+  'Nutrición',
+  'Psicología deportiva',
+  'Fútbol',
+  'Running',
+  'Fitness',
+]
+const names = [
+  'Dominio del balón y visión de juego',
+  'Baloncesto: técnica y lectura de cancha',
+  'Natación eficiente: estilo libre',
+  'Running: de 5K a media maratón',
+  'Yoga para atletas y movilidad',
+  'Crossfit desde cero con seguridad',
+  'Tenis moderno: golpes y estrategia',
+  'Ciclismo de ruta: potencia y resistencia',
+  'Jiu-jitsu para principiantes',
+  'Fuerza funcional para deportistas',
+  'Nutrición deportiva basada en evidencia',
+  'Mentalidad competitiva y confianza',
+  'Táctica de fútbol: presión y transición',
+  'Trail running: técnica en montaña',
+  'Entrenamiento HIIT para rendimiento',
+]
+const slugs = [
+  'dominio-balon',
+  'baloncesto-tecnica',
+  'natacion-estilo-libre',
+  'running-media-maraton',
+  'yoga-atletas',
+  'crossfit-cero',
+  'tenis-moderno',
+  'ciclismo-ruta',
+  'jiu-jitsu-principiantes',
+  'fuerza-funcional',
+  'nutricion-deportiva',
+  'mentalidad-competitiva',
+  'tactica-futbol',
+  'trail-running',
+  'hiit-rendimiento',
+]
+const lessons = (index: number) =>
+  Array.from({ length: 3 + (index % 6) }, (_, n) => ({
+    id: `${index + 1}-${n + 1}`,
+    title: [
+      'Bienvenida y objetivos',
+      'Fundamentos esenciales',
+      'Técnica paso a paso',
+      'Práctica guiada',
+      'Errores frecuentes',
+      'Plan de entrenamiento',
+      'Reto final',
+      'Cierre y siguientes pasos',
+    ][n],
+    duration: `${4 + n * 3}:20`,
+    videoUrl: video,
+    isFree: n === 0,
+    completed: false,
+  }))
+export const courses: Course[] = names.map((title, i) => ({
+  id: String(i + 1),
+  slug: slugs[i],
+  title,
+  subtitle: `Entrena ${sports[i].toLowerCase()} con un método claro, progresivo y aplicable desde hoy.`,
+  description: `Un programa práctico para mejorar tu rendimiento en ${sports[i].toLowerCase()}. Combina fundamentos, ejercicios guiados y herramientas para que avances con confianza a tu propio ritmo.`,
+  sport: sports[i],
+  level: i % 3 === 0 ? 'Principiante' : i % 3 === 1 ? 'Intermedio' : 'Avanzado',
+  price: [29.99, 39.99, 49.99, 34.99, 24.99][i % 5],
+  rating: Number((4.5 + (i % 5) / 10).toFixed(1)),
+  reviewsCount: 112 + i * 87,
+  students: 850 + i * 483,
+  duration: `${2 + (i % 5)} h ${15 + i * 4} min`,
+  thumbnail: `https://picsum.photos/seed/sportacademy-${i + 11}/960/540`,
+  previewVideo: video,
+  instructor: instructors[i % instructors.length],
+  lessons: lessons(i),
+  tags: [sports[i], i % 2 ? 'Técnica' : 'Rendimiento', 'Entrenamiento'],
+  updatedAt: 'septiembre de 2026',
+}))
+export const categories: Category[] = [
+  'Fútbol',
+  'Baloncesto',
+  'Natación',
+  'Running',
+  'Yoga',
+  'Crossfit',
+  'Tenis',
+  'Ciclismo',
+  'Artes marciales',
+  'Fitness',
+  'Nutrición',
+  'Psicología deportiva',
+].map((name, i) => ({
+  id: String(i),
+  name,
+  icon: ['⚽', '🏀', '🏊', '🏃', '🧘', '🏋️', '🎾', '🚴', '🥋', '💪', '🥗', '🧠'][i],
+  slug: name.toLowerCase().replace(' ', '-'),
+  coursesCount: courses.filter((c) => c.sport === name).length,
+}))
+export const reviews: Review[] = [
+  {
+    id: 'r1',
+    user: 'Camila Vega',
+    avatar: 'https://i.pravatar.cc/80?img=45',
+    rating: 5,
+    comment: 'Muy claro, práctico y con ejercicios que pude aplicar desde la primera semana.',
+    date: 'Hace 2 semanas',
+  },
+  {
+    id: 'r2',
+    user: 'Lucas Pérez',
+    avatar: 'https://i.pravatar.cc/80?img=11',
+    rating: 5,
+    comment: 'El ritmo es perfecto y las explicaciones del instructor son excelentes.',
+    date: 'Hace 1 mes',
+  },
+  {
+    id: 'r3',
+    user: 'Sofía Navarro',
+    avatar: 'https://i.pravatar.cc/80?img=49',
+    rating: 4,
+    comment: 'Contenido de calidad, especialmente útil para ordenar mi entrenamiento.',
+    date: 'Hace 2 meses',
+  },
+]
