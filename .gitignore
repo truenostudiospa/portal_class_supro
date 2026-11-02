@@ -1,0 +1,44 @@
+# Dependencias
+node_modules/
+
+# Build de Vite
+dist/
+dist-ssr/
+*.local
+
+# vite-plugin-pwa (service worker en modo dev)
+dev-dist/
+
+# TypeScript (tsc -b)
+*.tsbuildinfo
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Cache y cobertura
+.cache/
+.vite/
+coverage/
+.eslintcache
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.sw?
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
